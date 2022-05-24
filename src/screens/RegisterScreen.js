@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, ToastAndroid } from "react-native";
+import { View, StyleSheet, TouchableOpacity, ToastAndroid ,Platform} from "react-native";
 import { Text } from "react-native-paper";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
@@ -8,7 +8,9 @@ import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import BackButton from "../components/BackButton";
 import { theme } from "../core/theme";
-import { auth } from "../../firebase";
+import { auth,db } from "../../firebase";
+import firebase from "firebase/app";
+import "firebase/database";
 import { emailValidator } from "../helpers/emailValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
 import { nameValidator } from "../helpers/nameValidator";
@@ -33,15 +35,32 @@ export default function RegisterScreen({ navigation }) {
         .then((userCredentials) => {
           const user = userCredentials.user;
           console.log(user.email);
+          firebase.database().ref('users/' + user.uid).set({
+            username: name.value,
+            email: email.value,
+          }).catch((error) => {alert(error.message)
+            console.log(error.message,error)
+          });;
           ToastAndroid.show("User Created!", ToastAndroid.SHORT);
           navigation.reset({
             index: 0,
             routes: [{ name: "LoginScreen" }],
           });
         })
-        .catch((error) => alert(error.message));
+        .catch((error) => {alert(error.message)
+          console.log(error.message,error)
+        });
+        
     }
   };
+
+  function writeUserData(userId, name, email, imageUrl) {
+    set(ref(db, "users/" + userId), {
+      username: name,
+      email: email,
+      profile_picture: imageUrl,
+    });
+  }
 
   // const handleSignup = () => {
   //   auth

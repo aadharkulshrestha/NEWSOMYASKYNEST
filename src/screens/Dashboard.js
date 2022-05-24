@@ -5,6 +5,8 @@ import Header from '../components/Header'
 import Paragraph from '../components/Paragraph'
 import Button from '../components/Button'
 import {auth} from "../../firebase";
+import firebase from "firebase/app";
+import "firebase/database";
 
 export default function Dashboard({ navigation }) {
   return (
