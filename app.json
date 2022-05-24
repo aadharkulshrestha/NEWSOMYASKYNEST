@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "NEWNEST",
-    "slug": "NEWNEST",
+    "name": "Somya Sky Nest",
+    "slug": "SOMYASKYNEST",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/apartment.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -21,6 +21,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package" : "codingOps.SomyaNest",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

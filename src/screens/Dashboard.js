@@ -4,6 +4,7 @@ import Logo from '../components/Logo'
 import Header from '../components/Header'
 import Paragraph from '../components/Paragraph'
 import Button from '../components/Button'
+import {auth} from "../../firebase";
 
 export default function Dashboard({ navigation }) {
   return (
@@ -16,12 +17,17 @@ export default function Dashboard({ navigation }) {
       </Paragraph>
       <Button
         mode="outlined"
-        onPress={() =>
-          navigation.reset({
+        onPress={() => {
+          auth.signOut()
+          .then(() => {
+            navigation.reset({
             index: 0,
             routes: [{ name: 'StartScreen' }],
           })
-        }
+          })
+          .catch((error) => alert(error.message));
+          
+        }}
       >
         Logout
       </Button>
