@@ -1,17 +1,17 @@
-import React from 'react'
-import { Provider } from 'react-native-paper'
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import { theme } from './src/core/theme'
+import React from "react";
+import { Provider } from "react-native-paper";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { theme } from "./src/core/theme";
 import {
   StartScreen,
   LoginScreen,
   RegisterScreen,
   ResetPasswordScreen,
   Dashboard,
-} from './src/screens'
+} from "./src/screens";
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
@@ -34,5 +34,5 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
-  )
+  );
 }

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, ToastAndroid ,Platform} from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ToastAndroid,
+  Platform,
+} from "react-native";
 import { Text } from "react-native-paper";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
@@ -8,7 +14,7 @@ import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import BackButton from "../components/BackButton";
 import { theme } from "../core/theme";
-import { auth,db } from "../../firebase";
+import { auth, db } from "../../firebase";
 // import firebase from "firebase/app";
 // import "firebase/database";
 import { emailValidator } from "../helpers/emailValidator";
@@ -39,17 +45,20 @@ export default function RegisterScreen({ navigation }) {
         .then(async (userCredentials) => {
           const user = userCredentials.user;
           console.log(user.email);
-          db.ref('users/' + user.uid).set({
-            username: name.value,
-            email: email.value,
-            phone_number : phone.value,
-          }).catch((error) => {alert(error.message)
-            console.log(error.message,error)
-          });;
+          db.ref("users/" + user.uid)
+            .set({
+              username: name.value,
+              email: email.value,
+              phone_number: phone.value,
+            })
+            .catch((error) => {
+              alert(error.message);
+              console.log(error.message, error);
+            });
           try {
-            await AsyncStorage.setItem('userUid', user.uid)
+            await AsyncStorage.setItem("userUid", user.uid);
           } catch (err) {
-            console.log(err)
+            console.log(err);
           }
           ToastAndroid.show("User Created!", ToastAndroid.SHORT);
           navigation.reset({
@@ -57,10 +66,10 @@ export default function RegisterScreen({ navigation }) {
             routes: [{ name: "StartScreen" }],
           });
         })
-        .catch((error) => {alert(error.message)
-          console.log(error.message,error)
+        .catch((error) => {
+          alert(error.message);
+          console.log(error.message, error);
         });
-        
     }
   };
 
@@ -125,7 +134,6 @@ export default function RegisterScreen({ navigation }) {
         errorText={phone.error}
         textContentType="number"
         keyboardType="phone-pad"
-       
       />
       <Button
         mode="contained"

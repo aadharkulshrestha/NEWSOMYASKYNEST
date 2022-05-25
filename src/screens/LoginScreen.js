@@ -1,5 +1,5 @@
-import React, { useState , useEffect} from "react";
-import { TouchableOpacity, StyleSheet, View,ToastAndroid } from "react-native";
+import React, { useState, useEffect } from "react";
+import { TouchableOpacity, StyleSheet, View, ToastAndroid } from "react-native";
 import { Text } from "react-native-paper";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
@@ -8,25 +8,25 @@ import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import BackButton from "../components/BackButton";
 import { theme } from "../core/theme";
-import { auth } from "../../firebase"; 
+import { auth } from "../../firebase";
 import { emailValidator } from "../helpers/emailValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
 
   useEffect(() => {
-    auth.onAuthStateChanged(user => {
-      if (user){
+    auth.onAuthStateChanged((user) => {
+      if (user) {
         navigation.reset({
           index: 0,
           routes: [{ name: "Dashboard" }],
         });
       }
-    })
-  }, [])
+    });
+  }, []);
 
   const onLoginPressed = async () => {
     const emailError = emailValidator(email.value);
@@ -38,21 +38,20 @@ export default function LoginScreen({ navigation }) {
     }
     auth
       .signInWithEmailAndPassword(email.value, password.value)
-      .then(async (userCredentials)  => {
+      .then(async (userCredentials) => {
         const user = userCredentials.user;
         console.log("Logged in with :", user.email);
-        const jsonValue = JSON.stringify(user)
+        const jsonValue = JSON.stringify(user);
         try {
-          await AsyncStorage.setItem('userUid', user.uid)
+          await AsyncStorage.setItem("userUid", user.uid);
         } catch (err) {
-          console.log(err)
+          console.log(err);
         }
         ToastAndroid.show("User Logged IN!", ToastAndroid.SHORT);
         navigation.reset({
           index: 0,
           routes: [{ name: "Dashboard" }],
         });
-        
       })
 
       .catch((error) => alert(error.message));
