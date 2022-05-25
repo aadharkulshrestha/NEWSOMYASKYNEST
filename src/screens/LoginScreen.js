@@ -11,6 +11,7 @@ import { theme } from "../core/theme";
 import { auth } from "../../firebase"; 
 import { emailValidator } from "../helpers/emailValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: "", error: "" });
@@ -27,7 +28,7 @@ export default function LoginScreen({ navigation }) {
     })
   }, [])
 
-  const onLoginPressed = () => {
+  const onLoginPressed = async () => {
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
     if (emailError || passwordError) {
@@ -37,15 +38,23 @@ export default function LoginScreen({ navigation }) {
     }
     auth
       .signInWithEmailAndPassword(email.value, password.value)
-      .then((userCredentials) => {
+      .then(async (userCredentials)  => {
         const user = userCredentials.user;
         console.log("Logged in with :", user.email);
+        const jsonValue = JSON.stringify(user)
+        try {
+          await AsyncStorage.setItem('userUid', user.uid)
+        } catch (err) {
+          console.log(err)
+        }
         ToastAndroid.show("User Logged IN!", ToastAndroid.SHORT);
         navigation.reset({
           index: 0,
           routes: [{ name: "Dashboard" }],
         });
+        
       })
+
       .catch((error) => alert(error.message));
   };
 

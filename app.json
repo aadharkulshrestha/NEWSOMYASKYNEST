@@ -28,7 +28,7 @@
       }
     },
     "web": {
-      "favicon": ""
+      "favicon": "./src/assets/apartment.png"
     }
   }
 }

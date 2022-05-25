@@ -9,9 +9,10 @@ import TextInput from "../components/TextInput";
 import BackButton from "../components/BackButton";
 import { theme } from "../core/theme";
 import { auth,db } from "../../firebase";
-import firebase from "firebase/app";
-import "firebase/database";
+// import firebase from "firebase/app";
+// import "firebase/database";
 import { emailValidator } from "../helpers/emailValidator";
+import { phoneValidator } from "../helpers/phoneValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
 import { nameValidator } from "../helpers/nameValidator";
 
@@ -19,32 +20,41 @@ export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [phone, setPhone] = useState({ value: "", error: "" });
 
-  const onSignUpPressed = () => {
+  const onSignUpPressed = async () => {
     const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
-    if (emailError || passwordError || nameError) {
+    const phoneError = phoneValidator(phone.value);
+    if (emailError || passwordError || nameError || phoneError) {
       setName({ ...name, error: nameError });
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
+      setPhone({ ...phone, error: phoneError });
       return;
     } else {
       auth
         .createUserWithEmailAndPassword(email.value, password.value)
-        .then((userCredentials) => {
+        .then(async (userCredentials) => {
           const user = userCredentials.user;
           console.log(user.email);
-          firebase.database().ref('users/' + user.uid).set({
+          db.ref('users/' + user.uid).set({
             username: name.value,
             email: email.value,
+            phone_number : phone.value,
           }).catch((error) => {alert(error.message)
             console.log(error.message,error)
           });;
+          try {
+            await AsyncStorage.setItem('userUid', user.uid)
+          } catch (err) {
+            console.log(err)
+          }
           ToastAndroid.show("User Created!", ToastAndroid.SHORT);
           navigation.reset({
             index: 0,
-            routes: [{ name: "LoginScreen" }],
+            routes: [{ name: "StartScreen" }],
           });
         })
         .catch((error) => {alert(error.message)
@@ -54,13 +64,13 @@ export default function RegisterScreen({ navigation }) {
     }
   };
 
-  function writeUserData(userId, name, email, imageUrl) {
-    set(ref(db, "users/" + userId), {
-      username: name,
-      email: email,
-      profile_picture: imageUrl,
-    });
-  }
+  // function writeUserData(userId, name, email, imageUrl) {
+  //   set(ref(db, "users/" + userId), {
+  //     username: name,
+  //     email: email,
+  //     profile_picture: imageUrl,
+  //   });
+  // }
 
   // const handleSignup = () => {
   //   auth
@@ -99,12 +109,23 @@ export default function RegisterScreen({ navigation }) {
       />
       <TextInput
         label="Password"
-        returnKeyType="done"
+        returnKeyType="next"
         value={password.value}
         onChangeText={(text) => setPassword({ value: text, error: "" })}
         error={!!password.error}
         errorText={password.error}
         secureTextEntry
+      />
+      <TextInput
+        label="Phone Number"
+        returnKeyType="done"
+        value={phone.value}
+        onChangeText={(text) => setPhone({ value: text, error: "" })}
+        error={!!phone.error}
+        errorText={phone.error}
+        textContentType="number"
+        keyboardType="phone-pad"
+       
       />
       <Button
         mode="contained"
