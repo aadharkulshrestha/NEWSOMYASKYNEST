@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ToastAndroid,
   Platform,
+  SafeAreaView,
 } from "react-native";
 import { Text } from "react-native-paper";
 import Background from "../components/Background";
@@ -134,7 +135,6 @@ export default function RegisterScreen({ navigation }) {
         onChangeText={(text) => setPhone({ value: text, error: "" })}
         error={!!phone.error}
         errorText={phone.error}
-        textContentType="number"
         keyboardType="phone-pad"
       />
       <Button

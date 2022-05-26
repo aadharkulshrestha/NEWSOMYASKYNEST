@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity, StyleSheet, View, ToastAndroid } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  ToastAndroid,
+  SafeAreaView,
+} from "react-native";
 import { Text } from "react-native-paper";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
@@ -11,7 +17,7 @@ import { theme } from "../core/theme";
 import { auth } from "../../firebase";
 import { emailValidator } from "../helpers/emailValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
-import Toast from 'react-native-tiny-toast'
+import Toast from "react-native-tiny-toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen({ navigation }) {
@@ -48,8 +54,8 @@ export default function LoginScreen({ navigation }) {
         } catch (err) {
           console.log(err);
         }
-        Toast.show('User Logged IN!')
-       // ToastAndroid.show("User Logged IN!", ToastAndroid.SHORT);
+        Toast.show("User Logged IN!");
+        // ToastAndroid.show("User Logged IN!", ToastAndroid.SHORT);
         navigation.reset({
           index: 0,
           routes: [{ name: "Dashboard" }],
@@ -70,6 +76,7 @@ export default function LoginScreen({ navigation }) {
   // };
 
   return (
+    
     <Background>
       <BackButton goBack={navigation.goBack} />
       <Logo />

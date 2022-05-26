@@ -101,11 +101,11 @@ export default function Dashboard({ navigation }) {
         <View style={{ paddingHorizontal: 40, marginTop: 25 }}>
           <Text
             style={{
-              fontSize: 40,
+              fontSize: 45,
               color: "#522289",
             }}
           >
-            Hello
+            Hello !
           </Text>
 
           <Text
@@ -128,22 +128,11 @@ export default function Dashboard({ navigation }) {
         >
           <TouchableOpacity style={styles.container} onPress={() => {}}>
             <View style={{ top: -40 }}></View>
+            <Text style={styles.btnText}>hello</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.container} onPress={() => {}}>
             <View style={{ top: -40 }}></View>
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-          }}
-        >
-          <TouchableOpacity style={styles.container} onPress={() => {}}>
-            <View style={{ top: -40 }}></View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.container} onPress={() => {}}>
-            <View style={{ top: -40 }}></View>
+            <Text style={styles.btnText}>hello</Text>
           </TouchableOpacity>
         </View>
 
@@ -154,9 +143,26 @@ export default function Dashboard({ navigation }) {
         >
           <TouchableOpacity style={styles.container} onPress={() => {}}>
             <View style={{ top: -40 }}></View>
+            <Text style={styles.btnText}>hello</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.container} onPress={() => {}}>
             <View style={{ top: -40 }}></View>
+            <Text style={styles.btnText}>hello</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style={{ top: -40 }}></View>
+            <Text style={styles.btnText}>Comming Soon!</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style={{ top: -40 }}></View>
+            <Text style={styles.btnText}>Comming Soon!</Text>
           </TouchableOpacity>
         </View>
 
@@ -202,8 +208,15 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginHorizontal: 16,
     marginVertical: 20,
+    borderWidth: 2,
   },
   scrollViewCategories: {
     paddingLeft: 1,
+  },
+  btnText: {
+    textAlign: "center",
+    fontSize: 20,
+    marginVertical: 65,
+    color: "black",
   },
 });
