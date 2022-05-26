@@ -21,6 +21,7 @@ import { emailValidator } from "../helpers/emailValidator";
 import { phoneValidator } from "../helpers/phoneValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
 import { nameValidator } from "../helpers/nameValidator";
+import Toast from "react-native-tiny-toast";
 
 export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState({ value: "", error: "" });
@@ -60,7 +61,8 @@ export default function RegisterScreen({ navigation }) {
           } catch (err) {
             console.log(err);
           }
-          ToastAndroid.show("User Created!", ToastAndroid.SHORT);
+          Toast.show("User Created!");
+          //ToastAndroid.show("User Created!", ToastAndroid.SHORT);
           navigation.reset({
             index: 0,
             routes: [{ name: "StartScreen" }],

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Background from "../components/Background";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
-import Paragraph from "../components/Paragraph";
-import Button from "../components/Button";
 import { auth, db } from "../../firebase";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Menu, Divider, Provider } from "react-native-paper";
-import { IconButton } from "react-native-paper";
-import { View, Text, Image, ImageBackground, TextInput } from "react-native";
+import { IconButton, Menu } from "react-native-paper";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
+import Toast from "react-native-tiny-toast";
 
 export default function Dashboard({ navigation }) {
   const [name, setName] = useState("");
@@ -58,65 +59,120 @@ export default function Dashboard({ navigation }) {
   const closeMenu = () => setVisible(false);
 
   return (
-    <ImageBackground
-      source={require("../assets/dashBack.png")}
-      style={{ width: "100%", height: "100%" }}
-    >
-      <View style={{ paddingHorizontal: 40, marginTop: 30 }}>
-        <Menu
-          style={{ marginLeft: 190, marginTop: 40 }}
-          visible={visible}
-          onDismiss={closeMenu}
-          anchor={
-            <IconButton
-              icon="dots-vertical"
-              color="black"
-              size={22}
-              style={{ marginLeft: 260 }}
-              onPress={openMenu}
+    <SafeAreaView>
+      <ImageBackground
+        source={require("../assets/dashBack.png")}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <View style={{ paddingHorizontal: 40, marginTop: 30 }}>
+          <Menu
+            style={{ marginLeft: 190, marginTop: 40 }}
+            visible={visible}
+            onDismiss={closeMenu}
+            anchor={
+              <IconButton
+                icon="dots-vertical"
+                color="black"
+                size={22}
+                style={{ marginLeft: 260 }}
+                onPress={openMenu}
+              />
+            }
+          >
+            <Menu.Item
+              onPress={() => {
+                auth
+                  .signOut()
+                  .then(() => {
+                    removeItemValue();
+                    navigation.reset({
+                      index: 0,
+                      routes: [{ name: "StartScreen" }],
+                    });
+                  })
+                  .catch((error) => alert(error.message));
+                Toast.show("User Logged OUT!");
+                closeMenu();
+              }}
+              title="Log Out"
             />
-          }
-        >
-          <Menu.Item
-            onPress={() => {
-              auth
-                .signOut()
-                .then(() => {
-                  removeItemValue();
-                  navigation.reset({
-                    index: 0,
-                    routes: [{ name: "StartScreen" }],
-                  });
-                })
-                .catch((error) => alert(error.message));
+          </Menu>
+        </View>
+        <View style={{ paddingHorizontal: 40, marginTop: 25 }}>
+          <Text
+            style={{
+              fontSize: 40,
+              color: "#522289",
             }}
-            title="Log Out"
-          />
-        </Menu>
-      </View>
-      <View style={{ paddingHorizontal: 40, marginTop: 25 }}>
-        <Text
-          style={{
-            fontSize: 40,
-            color: "#522289",
-          }}
-        >
-          Hello
-        </Text>
+          >
+            Hello
+          </Text>
 
-        <Text
+          <Text
+            style={{
+              fontSize: 25,
+              paddingVertical: 15,
+              paddingRight: 80,
+              lineHeight: 22,
+              color: "black",
+            }}
+          >
+            {name}
+          </Text>
+        </View>
+
+        <View
           style={{
-            fontSize: 25,
-            paddingVertical: 15,
-            paddingRight: 80,
-            lineHeight: 22,
-            color: "black",
+            flexDirection: "row",
           }}
         >
-          {name}
-        </Text>
-      </View>
-      {/* <Button
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style={{ top: -40 }}></View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style={{ top: -40 }}></View>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style={{ top: -40 }}></View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style={{ top: -40 }}></View>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style={{ top: -40 }}></View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style={{ top: -40 }}></View>
+          </TouchableOpacity>
+        </View>
+
+        {/* <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.scrollViewCategories}
+        >
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style={{ top: -40 }}></View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.container} onPress={() => {}}>
+            <View style={{ top: -40 }}></View>
+          </TouchableOpacity>
+        </ScrollView>
+        {/* <Button
         mode="outlined"
         onPress={() => {
           auth
@@ -133,14 +189,21 @@ export default function Dashboard({ navigation }) {
       >
         Logout
       </Button> */}
-      {/* <Button
-        mode="outlined"
-        onPress={() => {
-          console.log(name)
-        }}
-      >
-        console
-      </Button> */}
-    </ImageBackground>
+      </ImageBackground>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: 160,
+    width: 150,
+    backgroundColor: "white",
+    borderRadius: 12,
+    marginHorizontal: 16,
+    marginVertical: 20,
+  },
+  scrollViewCategories: {
+    paddingLeft: 1,
+  },
+});

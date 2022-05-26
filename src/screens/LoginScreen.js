@@ -11,6 +11,7 @@ import { theme } from "../core/theme";
 import { auth } from "../../firebase";
 import { emailValidator } from "../helpers/emailValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
+import Toast from 'react-native-tiny-toast'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen({ navigation }) {
@@ -47,7 +48,8 @@ export default function LoginScreen({ navigation }) {
         } catch (err) {
           console.log(err);
         }
-        ToastAndroid.show("User Logged IN!", ToastAndroid.SHORT);
+        Toast.show('User Logged IN!')
+       // ToastAndroid.show("User Logged IN!", ToastAndroid.SHORT);
         navigation.reset({
           index: 0,
           routes: [{ name: "Dashboard" }],
