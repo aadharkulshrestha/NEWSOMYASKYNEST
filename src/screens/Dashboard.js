@@ -130,9 +130,17 @@ export default function Dashboard({ navigation }) {
             <View style={{ top: -40 }}></View>
             <Text style={styles.btnText}>hello</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.container} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() => {
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "Owners" }],
+              });
+            }}
+          >
             <View style={{ top: -40 }}></View>
-            <Text style={styles.btnText}>hello</Text>
+            <Text style={styles.btnText}>Owner's Detail</Text>
           </TouchableOpacity>
         </View>
 
