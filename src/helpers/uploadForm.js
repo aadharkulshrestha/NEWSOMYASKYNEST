@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ProgressBar from "../helpers/ProgressBar";
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet, SafeAreaView,Text,TextInput } from "react-native";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
@@ -21,17 +21,19 @@ const UploadForm = () => {
   };
 
   return (
-    <form style={styles.form}>
-      <label style={styles.label}>
-        <input style={styles.labelInput} type="file" onChange={handleChange} />
-        <span>+</span>
-      </label>
-      <div style={styles.output}>
-        {error && <div style={styles.error}>{error}</div>}
-        {file && <div>{file.name}</div>}
+    <SafeAreaView>
+    <View style={styles.form}>
+       <View style={styles.label}>
+        <TextInput style={styles.labelInput} type="file" onChange={handleChange} />
+        <Text>+</Text>
+      </View>
+      {/*<View style={styles.output}>
+        {error && <View style={styles.error}>{error}</View>}
+        {file && <View>{file.name}</View>}
         {file && <ProgressBar styles={styles.progressBar} file={file} setFile={setFile} />}
-      </div>
-    </form>
+      </View> */}
+    </View>
+    </SafeAreaView>
   );
 };
 
@@ -46,9 +48,8 @@ const styles = StyleSheet.create({
     color: "#ff4a4a",
   },
   label: {
-    display: "block",
-    width: "30px",
-    height: "30px",
+    width: 30,
+    height: 30,
     border: "1px solid #efb6b2",
     borderRadius: "50%",
     margin: "10px auto",
@@ -58,12 +59,10 @@ const styles = StyleSheet.create({
     fontSize: "24px",
   },
   labelInput: {
-    height: "0",
-    width: "0",
-    opacity: "0",
+    
   },
   form: {
-    margin: "30px auto 10px",
+    margin: "auto",
     textAlign: "center",
   },
   progressBar: {

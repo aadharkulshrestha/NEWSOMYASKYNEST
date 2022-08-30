@@ -13,20 +13,19 @@ export default function Image({ navigation }) {
   return (
     <SafeAreaView>
       <BackButton goBack={back} />
-      <div style={styles.container}>
+       <View style={styles.container}>
         <UploadForm />
-        <ImageGrid setSelectedImg={setSelectedImg} />
+        {/*<ImageGrid setSelectedImg={setSelectedImg} />
         {selectedImg && (
           <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
-        )}
-      </div>
+        )}*/}
+      </View> 
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    maxWidth: "460px",
-    margin: "0 auto",
+     margin: "auto",
   },
 });
