@@ -98,7 +98,7 @@ export default function Dashboard({ navigation }) {
             />
           </Menu>
         </View>
-        <View style={{ paddingHorizontal: 40, marginTop: 25 }}>
+        <View style={{ paddingHorizontal: 40, marginTop: 15 }}>
           <Text
             style={{
               fontSize: 45,
@@ -149,9 +149,17 @@ export default function Dashboard({ navigation }) {
             flexDirection: "row",
           }}
         >
-          <TouchableOpacity style={styles.container} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() => {
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "Image" }],
+              });
+            }}
+          >
             <View style={{ top: -40 }}></View>
-            <Text style={styles.btnText}>hello</Text>
+            <Text style={styles.btnText}>Images</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.container} onPress={() => {}}>
             <View style={{ top: -40 }}></View>

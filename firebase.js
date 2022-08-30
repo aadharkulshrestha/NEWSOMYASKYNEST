@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/database";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAm4mbX6dCLeLRayAM_jytUBNwfW0Swc04",
@@ -14,8 +15,11 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.database(app);
 const auth = firebase.auth(app);
+const projectStorage = firebase.storage();
+const projectFirestore = firebase.firestore();
+const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
-export { db, auth };
+export { db, auth, projectStorage, projectFirestore, timestamp };
 
 // import * as firebase from "firebase";
 // TODO: Add SDKs for Firebase products that you want to use
